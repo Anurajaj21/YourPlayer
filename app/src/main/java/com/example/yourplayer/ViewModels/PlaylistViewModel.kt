@@ -109,26 +109,34 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
 
     fun setList(){
         list.clear()
-        list.add(SongData("Har Ek Friend Kamina Hota Hai", "Unknown", R.raw.har_ek_friend_kamina_hota_hai))
-        list.add(SongData("Hume Tumse Pyaar Kitna", "Unknown", R.raw.hume_tumse_pyaar_kitna))
-        list.add(SongData("Believer", "Unknown", R.raw.believer))
-        list.add(SongData("Brown Munde", "Unknown", R.raw.brown_munde))
-        list.add(SongData("Casanova", "Unknown", R.raw.casanova))
-        list.add(SongData("Hall of Fame", "Unknown", R.raw.hall_of_fame))
-        list.add(SongData("Lut Gye", "Unknown", R.raw.lut_gye))
-        list.add(SongData("Paani Paani", "Unknown", R.raw.pani_pani))
-        list.add(SongData("Shor Machega", "Unknown", R.raw.shor_machega))
-        list.add(SongData("Tu Aake Dekh", "Unknown", R.raw.tu_aake_dekh))
+        list.add(SongData("Believer", "Imagine Dragons", R.raw.believer))
+        list.add(SongData("Hume Tumse Pyaar Kitna", "Sanam, R. D. Burman", R.raw.hume_tumse_pyaar_kitna))
+        list.add(SongData("Brown Munde", "AP Dhillon", R.raw.brown_munde))
+        list.add(SongData("Casanova", "King, Rahul Sathu", R.raw.casanova))
+        list.add(SongData("Hall of Fame", "The Script", R.raw.hall_of_fame))
+        list.add(SongData("Lut Gye", "Jubin Nautiyal", R.raw.lut_gye))
+        list.add(SongData("Paani Paani", "Badshah", R.raw.pani_pani))
+        list.add(SongData("Shor Machega", "Yo Yo Honey Singh", R.raw.shor_machega))
+        list.add(SongData("Tu Aake Dekh", "King", R.raw.tu_aake_dekh))
+        list.add(SongData("Coca Cola Tu", "Tony Kakkar, Neha Kakkar", R.raw.coca_cola_tu))
+        list.add(SongData("Dekhte Dekhte", "Atif Aslam", R.raw.dekhte_dekhte))
+        list.add(SongData("Jab Koi Baat", "Atif Aslam", R.raw.jab_koi_baat))
+        list.add(SongData("Nazar Lg Jayegi", "Milind Gaba, Kamal Raja", R.raw.nazar_lg_jaegi))
+        list.add(SongData("Pehla Nasha", "Udit Narayan, Sadhna Sargam", R.raw.pehla_nasha))
+        list.add(SongData("Har Ek Friend Kamina Hota Hai", "Sajid-Wajid, Sonu Nigam", R.raw.har_ek_friend_kamina_hota_hai))
+        list.add(SongData("Sun Saathiya", "Priya Saraiya, Divya Kumar", R.raw.sun_saathiya))
+        list.add(SongData("Aaja Meri Bike Par", "Tony Kakkar", R.raw.aaja_meri_bike_pr))
+        list.add(SongData("Tu He Yaar Mera", "Rochak Kohli", R.raw.tu_he_yaar_mera))
+        list.add(SongData("Tujhe Kitna Chahne Lage Hum", "Arjit Singh", R.raw.tujhe_kitna_chahne_lge))
     }
 
 
     fun setInitially(){
         if (_currentSong.value == null){
             _currentSong.value = list[0]
-            _currentIndex.value = 0
+//            _currentIndex.value = 0
             mp = MediaPlayer.create(getApplication(), list[0].source)
             _duration.value = mp.duration
-//            mp.start()
             _play.value = false
         }
     }

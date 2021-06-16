@@ -1,14 +1,11 @@
 package com.example.yourplayer.Activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.yourplayer.Fragments.PlaylistFragment
 import com.example.yourplayer.R
 import com.example.yourplayer.ViewModels.PlaylistViewModel
-import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,11 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onStart() {
-        viewModel.pauseSong()
-        super.onStart()
-    }
-
     override fun onPause() {
         viewModel.pauseSong()
         super.onPause()
@@ -39,4 +31,5 @@ class MainActivity : AppCompatActivity() {
         viewModel.resumeSong()
         super.onResume()
     }
+
 }
