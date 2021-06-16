@@ -65,7 +65,7 @@ class PlaylistFragment : Fragment() {
             val activity = it.context as AppCompatActivity
             val fragmentTransition = activity.supportFragmentManager.beginTransaction()
             fragmentTransition.replace(R.id.fragment_container, PlayFragment())
-            fragmentTransition.setCustomAnimations(R.anim.fade_in, R.anim.slide_up, R.anim.fade_in, R.anim.slide_down)
+            fragmentTransition.setCustomAnimations(R.anim.slide_up, R.anim.fade_in, R.anim.fade_in, R.anim.slide_down)
             fragmentTransition.addToBackStack("playlist")
             fragmentTransition.commit()
         }
