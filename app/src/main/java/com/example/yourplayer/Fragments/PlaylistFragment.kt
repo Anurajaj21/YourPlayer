@@ -1,6 +1,7 @@
 package com.example.yourplayer.Fragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,18 +18,18 @@ import com.example.yourplayer.Adapters.PlaylistAdapter
 import com.example.yourplayer.Models.SongData
 import com.example.yourplayer.R
 import com.example.yourplayer.ViewModels.PlaylistViewModel
+import kotlinx.android.synthetic.main.fragment_play.*
 import kotlinx.android.synthetic.main.fragment_playlist.*
 
 
 class PlaylistFragment : Fragment() {
 
     val list = ArrayList<SongData>()
-
-    val viewModel : PlaylistViewModel by activityViewModels()
+    val viewModel: PlaylistViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_playlist, container, false)
@@ -38,7 +39,6 @@ class PlaylistFragment : Fragment() {
         setList()
         viewModel.setList()
         viewModel.setInitially()
-
 
         val adapter = PlaylistAdapter(list, this, viewModel)
         adapter.notifyDataSetChanged()
@@ -54,9 +54,9 @@ class PlaylistFragment : Fragment() {
         })
 
         viewModel.play.observe(viewLifecycleOwner, Observer {
-            if (it){
+            if (it) {
                 play.setImageResource(R.drawable.pause_icon)
-            }else{
+            } else {
                 play.setImageResource(R.drawable.play_icon)
             }
         })
@@ -80,27 +80,27 @@ class PlaylistFragment : Fragment() {
 
 
 
-    fun setList(){
+    fun setList() {
         list.clear()
         list.add(SongData("Har Ek Friend Kamina Hota Hai", "Unknown", R.raw.har_ek_friend_kamina_hota_hai))
         list.add(SongData("Hume Tumse Pyaar Kitna", "Unknown", R.raw.hume_tumse_pyaar_kitna))
         list.add(SongData("Believer", "Unknown", R.raw.believer))
         list.add(SongData("Brown Munde", "Unknown", R.raw.brown_munde))
         list.add(SongData("Casanova", "Unknown", R.raw.casanova))
-        list.add(SongData("Half of Fame", "Unknown", R.raw.hall_of_fame))
+        list.add(SongData("Hall of Fame", "Unknown", R.raw.hall_of_fame))
         list.add(SongData("Lut Gye", "Unknown", R.raw.lut_gye))
         list.add(SongData("Paani Paani", "Unknown", R.raw.pani_pani))
         list.add(SongData("Shor Machega", "Unknown", R.raw.shor_machega))
         list.add(SongData("Tu Aake Dekh", "Unknown", R.raw.tu_aake_dekh))
     }
 
-    override fun onPause() {
-        viewModel.pauseSong()
-        super.onPause()
-    }
-
-    override fun onResume() {
-        viewModel.resumeSong()
-        super.onResume()
-    }
+//    override fun onPause() {
+//        viewModel.pauseSong()
+//        super.onPause()
+//    }
+//
+//    override fun onResume() {
+//        viewModel.resumeSong()
+//        super.onResume()
+//    }
 }

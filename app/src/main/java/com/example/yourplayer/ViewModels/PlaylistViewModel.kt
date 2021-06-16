@@ -15,7 +15,6 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
 
     var mp  = MediaPlayer()
 
-
     val list = ArrayList<SongData>()
 
     private val _currentSong = MutableLiveData<SongData>()
@@ -35,18 +34,22 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
     get() = _duration
 
     fun playSong(song: SongData){
-        if (mp != MediaPlayer.create(getApplication(), song.source)) {
+
             mp.stop()
             mp.release()
             mp = MediaPlayer.create(getApplication(), song.source)
 //            mp.setOnPreparedListener {
 //                _duration.value = mp.duration
 //            }
+//            mp.prepareAsync()
+            mp.setOnPreparedListener {
+                mp.start()
+            }
             _duration.value = mp.duration
-            mp.start()
-        }
+
         _play.value = true
     }
+
 
     fun pauseSong() {
         mp.pause()
@@ -56,7 +59,7 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
     fun handlePlayPause(){
 
         if (mp.isPlaying){
-            Log.d("abcd", mp.toString())
+
             mp.pause()
             _play.value = false
         }else{
@@ -84,6 +87,7 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
         mp.pause()
         mp = MediaPlayer.create(getApplication(), _currentSong.value?.source!!)
         mp.start()
+        _play.value = true
     }
 
     fun previousSong(){
@@ -96,7 +100,7 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
         mp.pause()
         mp = MediaPlayer.create(getApplication(), _currentSong.value?.source!!)
         mp.start()
-
+        _play.value = true
     }
 
     fun setCurrentSong(s : SongData){
@@ -116,27 +120,23 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
         list.add(SongData("Believer", "Unknown", R.raw.believer))
         list.add(SongData("Brown Munde", "Unknown", R.raw.brown_munde))
         list.add(SongData("Casanova", "Unknown", R.raw.casanova))
-        list.add(SongData("Half of Fame", "Unknown", R.raw.hall_of_fame))
+        list.add(SongData("Hall of Fame", "Unknown", R.raw.hall_of_fame))
         list.add(SongData("Lut Gye", "Unknown", R.raw.lut_gye))
         list.add(SongData("Paani Paani", "Unknown", R.raw.pani_pani))
         list.add(SongData("Shor Machega", "Unknown", R.raw.shor_machega))
         list.add(SongData("Tu Aake Dekh", "Unknown", R.raw.tu_aake_dekh))
     }
 
-    fun setSeeekBar(seekBar: SeekBar) {
-        mp.setOnPreparedListener {
-            seekBar.max = mp.duration
-            mp.start()
-        }
-    }
 
     fun setInitially(){
         if (_currentSong.value == null){
+            Log.d("abcdef", mp.toString())
             _currentSong.value = list[0]
             _currentIndex.value = 0
             mp = MediaPlayer.create(getApplication(), list[0].source)
+            Log.d("abcd", mp.toString())
             mp.start()
-            _play.value = true
+            _play.value = false
         }
     }
 

@@ -19,13 +19,13 @@
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal">
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/back_arrow"
-            android:padding="2dp"
+            android:padding="4dp"
             app:tint="@color/light_pink" />
 
         <TextView
@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Back"
             android:textStyle="bold"
+            android:gravity="center_vertical"
             android:textColor="@color/light_pink"
             android:textSize="20sp"
             android:padding="4dp"
@@ -91,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/song_name" />
 
     <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/song_progress"
+        android:id="@+id/seek_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -113,7 +114,7 @@
         android:src="@drawable/play_icon"
         app:layout_constraintEnd_toEndOf="@id/song_img"
         app:layout_constraintStart_toStartOf="@id/song_img"
-        app:layout_constraintTop_toBottomOf="@id/song_progress"
+        app:layout_constraintTop_toBottomOf="@id/seek_bar"
         app:tint="@color/blue" />
 
     <ImageButton
