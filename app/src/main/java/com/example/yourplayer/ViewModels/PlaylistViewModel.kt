@@ -38,10 +38,7 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
             mp.stop()
             mp.release()
             mp = MediaPlayer.create(getApplication(), song.source)
-//            mp.setOnPreparedListener {
-//                _duration.value = mp.duration
-//            }
-//            mp.prepareAsync()
+
             mp.setOnPreparedListener {
                 mp.start()
             }
@@ -59,14 +56,12 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
     fun handlePlayPause(){
 
         if (mp.isPlaying){
-
             mp.pause()
             _play.value = false
         }else{
             Log.d("abcde", mp.toString())
             mp.start()
-//            mp.setOnPreparedListener {
-//                mp.start()
+
             _play.value = true
 //            }
         }
@@ -116,7 +111,6 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
         list.clear()
         list.add(SongData("Har Ek Friend Kamina Hota Hai", "Unknown", R.raw.har_ek_friend_kamina_hota_hai))
         list.add(SongData("Hume Tumse Pyaar Kitna", "Unknown", R.raw.hume_tumse_pyaar_kitna))
-        list.add(SongData("Ik Kahani", "Unknown", R.raw.ik_kahani))
         list.add(SongData("Believer", "Unknown", R.raw.believer))
         list.add(SongData("Brown Munde", "Unknown", R.raw.brown_munde))
         list.add(SongData("Casanova", "Unknown", R.raw.casanova))
@@ -130,12 +124,11 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
 
     fun setInitially(){
         if (_currentSong.value == null){
-            Log.d("abcdef", mp.toString())
             _currentSong.value = list[0]
             _currentIndex.value = 0
             mp = MediaPlayer.create(getApplication(), list[0].source)
-            Log.d("abcd", mp.toString())
-            mp.start()
+            _duration.value = mp.duration
+//            mp.start()
             _play.value = false
         }
     }

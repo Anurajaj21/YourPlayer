@@ -15,8 +15,6 @@ import kotlinx.android.synthetic.main.songs_layout.view.*
 
 class PlaylistAdapter(val list: ArrayList<SongData>, val context: PlaylistFragment, val playlistViewModel: PlaylistViewModel) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 
-    private val _currentPlaying = MutableLiveData<SongData>()
-
 
     var currentPosition: Int = 0
 

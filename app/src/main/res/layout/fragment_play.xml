@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@drawable/gradient3"
     tools:context=".Fragments.PlayFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -25,7 +25,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/back_arrow"
-            android:padding="4dp"
+            android:padding="6dp"
             app:tint="@color/light_pink" />
 
         <TextView
@@ -104,12 +104,36 @@
         app:layout_constraintStart_toStartOf="@id/song_img"
         app:layout_constraintTop_toBottomOf="@id/song_artist" />
 
+    <TextView
+        android:id="@+id/initial_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="@color/light_pink"
+        android:textSize="12sp"
+        android:padding="1dp"
+        android:fontFamily="@font/josefinsansregular"
+        app:layout_constraintStart_toStartOf="@id/seek_bar"
+        app:layout_constraintTop_toBottomOf="@id/seek_bar"/>
+
+    <TextView
+        android:id="@+id/final_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="@color/light_pink"
+        android:textSize="12sp"
+        android:padding="1dp"
+        android:fontFamily="@font/josefinsansregular"
+        app:layout_constraintEnd_toEndOf="@id/seek_bar"
+        app:layout_constraintTop_toBottomOf="@id/seek_bar"/>
+
 
     <ImageButton
         android:id="@+id/play_pause_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/round_bg"
         android:src="@drawable/play_icon"
         app:layout_constraintEnd_toEndOf="@id/song_img"

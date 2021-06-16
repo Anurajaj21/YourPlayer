@@ -94,13 +94,4 @@ class PlaylistFragment : Fragment() {
         list.add(SongData("Tu Aake Dekh", "Unknown", R.raw.tu_aake_dekh))
     }
 
-//    override fun onPause() {
-//        viewModel.pauseSong()
-//        super.onPause()
-//    }
-//
-//    override fun onResume() {
-//        viewModel.resumeSong()
-//        super.onResume()
-//    }
 }

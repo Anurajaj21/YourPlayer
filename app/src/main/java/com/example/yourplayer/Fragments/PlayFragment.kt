@@ -1,21 +1,19 @@
 package com.example.yourplayer.Fragments
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import com.example.yourplayer.R
 import com.example.yourplayer.ViewModels.PlaylistViewModel
-import kotlinx.android.synthetic.main.fragment_play.*
 
 
 class PlayFragment : Fragment() {
@@ -23,26 +21,30 @@ class PlayFragment : Fragment() {
     val viewModel : PlaylistViewModel by activityViewModels()
     private lateinit var seekBar : SeekBar
     private lateinit var handler: Handler
+    private lateinit var playPause : ImageView
+    private lateinit var finalnTime : TextView
+    private lateinit var initialTime : TextView
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
-        val playPause = view.findViewById<ImageView>(R.id.play_pause_btn)
+        playPause = view.findViewById(R.id.play_pause_btn)
         val name = view.findViewById<TextView>(R.id.song_name)
         val artist = view.findViewById<TextView>(R.id.song_artist)
         val next = view.findViewById<ImageView>(R.id.next)
         val prev = view.findViewById<ImageView>(R.id.previous)
-        seekBar = view.findViewById<SeekBar>(R.id.seek_bar)
+        val back = view.findViewById<LinearLayout>(R.id.back_btn)
+        initialTime = view.findViewById<TextView>(R.id.initial_time)
+        finalnTime = view.findViewById(R.id.final_time)
+        seekBar = view.findViewById(R.id.seek_bar)
 
 
+        back.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
-
-//        seekBar.max = viewModel.mp.duration/1000
-//        Runnable {
-//            seekBar.progress = viewModel.mp.currentPosition/1000
-//        }
         handler = Handler()
         viewModel.currentSong.observe(viewLifecycleOwner, Observer {
             name.text = it.name
@@ -52,11 +54,12 @@ class PlayFragment : Fragment() {
 
         viewModel.duration.observe(viewLifecycleOwner, Observer {
             seekBar.max = it
+            finalnTime.text = getTimeString(it.toLong())
         })
         viewModel.play.observe(viewLifecycleOwner, Observer {
-            if (it){
+            if (it) {
                 playPause.setImageResource(R.drawable.pause_icon)
-            }else{
+            } else {
                 playPause.setImageResource(R.drawable.play_icon)
             }
         })
@@ -75,7 +78,7 @@ class PlayFragment : Fragment() {
         }
 
 
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     viewModel.mp.seekTo(progress)
@@ -97,15 +100,6 @@ class PlayFragment : Fragment() {
         return view
     }
 
-//    override fun onPause() {
-//        viewModel.pauseSong()
-//        super.onPause()
-//    }
-//
-//    override fun onResume() {
-//        viewModel.resumeSong()
-//        super.onResume()
-//    }
 
     fun updateSeekBar() {
         val currPos = viewModel.mp.currentPosition
@@ -113,7 +107,21 @@ class PlayFragment : Fragment() {
         seekBar.progress = currPos
         val runnable = Runnable {
             updateSeekBar()
+            initialTime.text = getTimeString(viewModel.mp.currentPosition.toLong())
         }
         handler.postDelayed(runnable, 1000)
     }
+
+    private fun getTimeString(millis: Long): String? {
+        val buf = StringBuffer()
+        val minutes = (millis % (1000 * 60 * 60) / (1000 * 60)).toInt()
+        val seconds = (millis % (1000 * 60 * 60) % (1000 * 60) / 1000).toInt()
+        buf
+
+                .append(String.format("%02d", minutes))
+                .append(":")
+                .append(String.format("%02d", seconds))
+        return buf.toString()
+    }
+
 }
